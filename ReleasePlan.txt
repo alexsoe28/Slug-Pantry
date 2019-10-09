@@ -1,0 +1,18 @@
+Release Plan Version 1 - October 8th, 2019
+Product: Slug Pantry
+Team name: Slugs en la cocina
+Release Date: October 4th, 2019
+High Level Goals:
+Be able to pull recipes from the internet and parse the recipe for information.
+Create a rating system for sorting recipes. 
+Be able to save a grocery list and stays on the app even after the user closes it.
+Be able to log what groceries you already have and remind you of what you need.
+User Stories:
+Sprint 1:
+User story 1: As a college student, I want some initial tips and recipes to help me get on my feet
+User story 2: I want a way of keeping track of my groceries.
+Sprint 2:
+User story 1: As someone who now has a bunch of ingredients, I want recipes so that I can use the remaining ingredients in my pantry 
+Sprint 3:
+User story 1: As someone who now has a bunch of new recipes, I want to be able to sort those recipes based on either difficulty or cost to help me decide what to cook.
+
