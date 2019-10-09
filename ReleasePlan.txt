@@ -1,7 +1,7 @@
 Release Plan Version 1 - October 8th, 2019
 Product: Slug Pantry
 Team name: Slugs en la cocina
-Release Date: October 4th, 2019
+Release Date: December 4th, 2019
 High Level Goals:
 Be able to pull recipes from the internet and parse the recipe for information.
 Create a rating system for sorting recipes. 
