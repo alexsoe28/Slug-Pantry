@@ -1,10 +1,12 @@
 import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   Platform,
   ScrollView,
   StyleSheet,
+  TextInput,
+  Button,
   Text,
   TouchableOpacity,
   View,
@@ -13,58 +15,37 @@ import {
 import { MonoText } from '../components/StyledText';
 
 export default function HomeScreen() {
+
+  const [enterIngredient, setEnterIngredient] = useState('');
+  const [ingredientList, setIngredientList] = useState([]);
+
+  const IngredientInputHandler = enteredText => {
+    setEnterIngredient(enteredText);
+  };
+
+  const addIngredientHandler = () => {
+    setIngredientList(currentIngredients => [...currentIngredients, enterIngredient]);
+  };
+
   return (
     <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
+      <View style={styles.inputContainer}>
+        <TextInput 
+          placeholder="Enter Ingredient..." 
+          style={styles.input}
+          onChangeText={IngredientInputHandler}
+          value={enterIngredient}
+          />
+        <Button 
+          title="+" 
+          onPress={addIngredientHandler}
           />
         </View>
-
-        <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
-
-          <Text style={styles.getStartedText}>Get started by opening</Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
-
-          <Text style={styles.getStartedText}>
-            Change this text and your app will automatically reload.
-          </Text>
+        <View>
+          {ingredientList.map((ingredient) => <Text>{ingredient}</Text>)}
         </View>
 
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>
-          This is a tab bar. You can edit it in:
-        </Text>
-
-        <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
-          </MonoText>
-        </View>
-      </View>
+      
     </View>
   );
 }
@@ -109,8 +90,22 @@ function handleHelpPress() {
 }
 
 const styles = StyleSheet.create({
+  creen: {
+    padding: 50
+  },
+  inputContainer: {
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center'
+  },
+  input: {
+    width: '80%', 
+    borderBottomColor: 'black', 
+    borderBottomWidth: 1, 
+    padding: 10
+  },
   container: {
-    flex: 1,
+    padding: 50,
     backgroundColor: '#fff',
   },
   developmentModeText: {
