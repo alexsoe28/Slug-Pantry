@@ -10,10 +10,11 @@ import {
   Text,
   TouchableOpacity,
   View,
+  FlatList
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
-
+import Swipeout from 'react-native-swipeout';
 export default function HomeScreen() {
 
   const [enterIngredient, setEnterIngredient] = useState('');
@@ -24,7 +25,10 @@ export default function HomeScreen() {
   };
 
   const addIngredientHandler = () => {
-    setIngredientList(currentIngredients => [...currentIngredients, enterIngredient]);
+    setIngredientList(currentIngredients => [
+      ...currentIngredients, 
+      { id: Math.random().toString(), value: enterIngredient }
+    ]);
   };
 
   return (
@@ -41,11 +45,15 @@ export default function HomeScreen() {
           onPress={addIngredientHandler}
           />
         </View>
-        <View>
-          {ingredientList.map((ingredient) => <Text>{ingredient}</Text>)}
-        </View>
-
-      
+        <FlatList 
+          keyExtractor={(item, index) => item.id}
+          data={ingredientList}
+          renderItem={itemData => (
+            <View style={styles.listItem}>
+              <Text>{itemData.item.value}</Text>
+            </View>
+          )}
+        />
     </View>
   );
 }
@@ -190,4 +198,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
+  listItem: {
+    padding: 10,
+    margin: 3,
+    backgroundColor: 'yellow',
+    borderColor: 'black',
+    borderWidth:1
+  }
 });
