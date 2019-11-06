@@ -40,12 +40,10 @@ export default function HomeScreen() {
           title="+" 
           onPress={addIngredientHandler}
           />
-        </View>
+      </View>
         <View>
           {ingredientList.map((ingredient) => <Text>{ingredient}</Text>)}
         </View>
-
-      
     </View>
   );
 }
