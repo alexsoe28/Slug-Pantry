@@ -3,10 +3,10 @@ Work for the app Slug Pantry will be done here. This is a project for the class 
 Current Collaborators include William Kudsk, Alexander Soe, Collyn Noda, and Ojas Malwankar
 
 npm install
-open nod modules
-  open metro-config
-    open src
-        open defaults
-          open blacklist
-            set line as:
-            /node_modules[\/\\]react[\/\\]dist[\/\\].*/,
+~open node-modules
+  ~open metro-config
+    ~open src
+      ~open defaults
+        ~open blacklist
+          ~set line as:
+          ~/node_modules[\/\\]react[\/\\]dist[\/\\].*/,
