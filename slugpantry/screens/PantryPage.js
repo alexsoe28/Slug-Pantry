@@ -1,22 +1,15 @@
-import * as WebBrowser from 'expo-web-browser';
 import React, { useState } from 'react';
 import {
-  Image,
   Platform,
-  ScrollView,
   StyleSheet,
   TextInput,
   Button,
   Text,
-  TouchableOpacity,
   View,
   FlatList
 } from 'react-native';
 
-import { MonoText } from '../components/StyledText';
-import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
-
-const HomeScreen = props => {
+const PantryPage = props => {
 
   const [enterIngredient, setEnterIngredient] = useState('');
   const [ingredientList, setIngredientList] = useState([]);
@@ -68,10 +61,6 @@ const HomeScreen = props => {
     </View>
   );
 }
-
-HomeScreen.navigationOptions = {
-  header: null,
-};
 
 const styles = StyleSheet.create({
   screen: {
@@ -190,4 +179,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HomeScreen;
+export default PantryPage;

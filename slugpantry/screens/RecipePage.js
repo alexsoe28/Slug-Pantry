@@ -4,12 +4,10 @@ import {StyleSheet, View, Text} from 'react-native';
 import Card from '../components/Card';
 
 
-
-
 const RecipePage = props => {
 
     return(
-        <View>
+        <View style={styles.screen}>
             <Card/>
         </View>
     );
