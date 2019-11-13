@@ -3,17 +3,17 @@ import {StyleSheet, View, Text, Image, Linking} from 'react-native';
 
 const Card = props  => {
     
-    let url = 'http://www.seriouseats.com/recipes/2011/12/chicken-vesuvio-recipe.html';
+    //let url = 'http://www.seriouseats.com/recipes/2011/12/chicken-vesuvio-recipe.html';
     
     const linkHandler = () => {
-        Linking.openURL(url).catch((err) => console.error('An error occurred', err));
+        Linking.openURL(props.url).catch((err) => console.error('An error occurred', err));
     };
     
     return(
         <View style={styles.card}>
-            <Image source = {{uri: 'https://www.edamam.com/web-img/e12/e12b8c5581226d7639168f41d126f2ff.jpg'}}
+            <Image source = {{uri: props.source}}
             style={styles.imageStyle} />
-            <Text style={styles.titleStyle} onPress={linkHandler}>Chicken Paprikash</Text>
+            <Text style={styles.titleStyle} onPress={linkHandler}>{props.title}</Text>
         </View>
     );
 };
@@ -31,13 +31,15 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 20,
         borderRadius: 10,
-        maxHeight: '20%',
+        height: 140,
+        //maxHeight: '20%',
         //justifyContent: 'space-between',
         flexDirection: 'row',
-        margin: 10
+        marginTop: 10
     },
     titleStyle:{
-        fontSize: 24,
+        flex: 2,
+        fontSize: 18,
         fontFamily: 'sans-serif-medium'
     },
     imageStyle:{

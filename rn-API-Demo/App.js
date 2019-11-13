@@ -11,11 +11,8 @@ export default class App extends React.Component {
     }
   }
 
-  componentDidMount () {
-
-    
+  componentDidMount () {   
     return fetch('https://api.edamam.com/search?q=banana nutella&app_id=$e1013624&app_key=$1053882cde32aadeb1a812eb85e3b572')
-      .then(console.log("Found the API"))
       .then ((response) => response.json() )
       .then( (responseJson) => {
 
