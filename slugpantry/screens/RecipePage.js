@@ -28,20 +28,22 @@ const RecipePage = props => {
     }
     
 
-
     let content = <ActivityIndicator/>
     if(isLoading){
         componentDidMount();
     }
     if(!isLoading){
-        content = dataSource.map((val, key) => {
-            return <View key={key} style={styles.item}>
-              <Card title={val.recipe.label}
-                    url={val.recipe.url}
-                    source={val.recipe.image}/>
-            </View>
-        });
+        content = <FlatList
+            keyExtractor={(item, index) => item.id}
+            data={dataSource}
+            renderItem={itemData => (<View style={styles.item}>
+            <Card title={itemData.item.recipe.label}
+                  url={itemData.item.recipe.url}
+                  source={itemData.item.recipe.image}
+                  key={itemData.item.id}/>
+            </View>)}/>;
     }
+
 
     return(
 

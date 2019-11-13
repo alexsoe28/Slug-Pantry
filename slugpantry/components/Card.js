@@ -3,8 +3,8 @@ import {StyleSheet, View, Text, Image, Linking} from 'react-native';
 
 const Card = props  => {
     
-    //let url = 'http://www.seriouseats.com/recipes/2011/12/chicken-vesuvio-recipe.html';
-    
+    let key = props.key;
+
     const linkHandler = () => {
         Linking.openURL(props.url).catch((err) => console.error('An error occurred', err));
     };
