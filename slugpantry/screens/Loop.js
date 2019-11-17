@@ -10,16 +10,17 @@ const Loop = props => {
     const [dataSource, setDataSource] = useState(null);
     const [isLoading,setIsLoading] = useState(true);
     var ingredients = ["chicken", "banana", "nutella", "beets", "ground beef"];
-    var ingredientSet = new setDataSource(ingredients);
+    //var ingredientSet = new setDataSource(ingredients);
     var powerSet = [[]];
     var recipes = [];
-    var images = [];
-    var links = [];
+    //var images = [];
+    //var links = [];
 
     function powerize(array){
         for (var i = 0; i < array.length; i++){
             for (var j = 0; j < powerSet.length; j++){
                 powerSet.push(powerSet[j].concat("+" + array[i]))
+                console.log(powerSet[i])
             }
         }
     }
@@ -29,16 +30,19 @@ const Loop = props => {
     }
 
     componentDidMount =  async () => {   
-        return fetch('https://api.edamam.com/search?q=chicken&app_id=$e1013624&app_key=$1053882cde32aadeb1a812eb85e3b572')
+        for (var i = 0; i < powerSet.length; i++){
+            return fetch('https://api.edamam.com/search?q=powerSet[i]&app_id=$e1013624&app_key=$1053882cde32aadeb1a812eb85e3b572')
         .then(console.log("found API"))
         .then ((response) => response.json() )
         .then( (responseJson) => {
-            dataSourceHandler(responseJson.hits);
+            dataSourceHandler(recipes.concat(responseJson.hits));
             setIsLoading(false);
         })
         .catch((error) => {
             console.log(error)
         }) 
+        }
+        
     }
     
 

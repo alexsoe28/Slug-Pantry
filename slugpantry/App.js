@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import PantryPage from './screens/PantryPage';
 import Header from './components/Header';
 import RecipePage from './screens/RecipePage';
+import Loop from './screens/Loop'
 
 //Switch <RecipePage/> to <PantryPage/> if you want to see that instead of whats currently being displayed
 export default function App() {
@@ -20,7 +21,7 @@ export default function App() {
 
   let content = <PantryPage/>;
   if(contentSwitch === 1){
-    content = <RecipePage/>
+    content = <Loop/>
   }
 
   return (
