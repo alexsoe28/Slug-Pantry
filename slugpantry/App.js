@@ -8,6 +8,24 @@ import RecipePage from './screens/RecipePage';
 export default function App() {
 
   const [contentSwitch, setContentSwitch] = useState(0);
+  const [ingredientList, setIngredientList] = useState([]);
+  const [enterIngredient, setEnterIngredient] = useState('');
+
+  const ingredientInputHandler = enteredText => {
+    setEnterIngredient(enteredText);
+  };
+
+  const addIngredientHandler = () => {
+    setIngredientList(currentIngredients => [
+      ...currentIngredients, 
+      { id: Math.random().toString(), value: enterIngredient }
+    ]);
+  };
+  deleteItemByID = ingredientId =>{
+    setIngredientList(currentIngredients =>{
+      return currentIngredients.filter((ingredient) => ingredient.id !== ingredientId)
+    })
+  }
 
   const contentSwitchHandler = () => {
     if(contentSwitch === 0){
@@ -18,9 +36,9 @@ export default function App() {
     }
   };
 
-  let content = <PantryPage/>;
+  let content = <PantryPage ingredientInputHandlerMaster = {ingredientInputHandler} ingredientList= {ingredientList} addIngredientHandler= {addIngredientHandler}/>;
   if(contentSwitch === 1){
-    content = <RecipePage/>
+    content = <RecipePage ingredientList = {ingredientList} contentSwitchHandler = {contentSwitchHandler}/>
   }
 
   return (

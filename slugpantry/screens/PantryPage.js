@@ -12,40 +12,29 @@ import {
 const PantryPage = props => {
 
   const [enterIngredient, setEnterIngredient] = useState('');
-  const [ingredientList, setIngredientList] = useState([]);
 
-  const IngredientInputHandler = enteredText => {
+  const ingredientInputHandler = enteredText => {
+    props.ingredientInputHandlerMaster(enteredText);
     setEnterIngredient(enteredText);
   };
-
-  const addIngredientHandler = () => {
-    setIngredientList(currentIngredients => [
-      ...currentIngredients, 
-      { id: Math.random().toString(), value: enterIngredient }
-    ]);
-  };
-  deleteItemByID = ingredientId =>{
-    setIngredientList(currentIngredients =>{
-      return currentIngredients.filter((ingredient) => ingredient.id !== ingredientId)
-    })
-  }
+  
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <TextInput 
           placeholder="Enter Ingredient..." 
           style={styles.input}
-          onChangeText={IngredientInputHandler}
+          onChangeText={ingredientInputHandler}
           value={enterIngredient}
         />
         <Button 
           title="+" 
-          onPress={addIngredientHandler}
+          onPress={props.addIngredientHandler}
         />
       </View>
           <FlatList 
             keyExtractor={(item, index) => item.id}
-            data={ingredientList}            
+            data={props.ingredientList}            
             renderItem={itemData => (
               <View style={styles.listItem}>
                 <Text>{itemData.item.value}</Text>  
