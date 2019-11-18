@@ -10,3 +10,8 @@ npm install
         ~open blacklist
           ~set line as:
           ~/node_modules[\/\\]react[\/\\]dist[\/\\].*/,
+
+Instructions for environmental variables:
+https://levelup.gitconnected.com/how-to-gracefully-use-environment-variables-in-a-react-native-app-7f1600446116
+-Replace yarn add react-native-dotenv with npm add react-native-dotenv
+-Ask Will for the APP ID and APP KEY
