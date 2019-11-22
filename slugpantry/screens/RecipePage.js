@@ -8,13 +8,7 @@ import { SLUGPANTRY_KEY, SLUGPANTRY_ID } from 'react-native-dotenv';
 const RecipePage = props => {
 
     const[recipeList, setrecipeList] = useState([]);
-    const [dataSource, setDataSource] = useState(null);
     const [isLoading,setIsLoading] = useState(true);
-    
-    const dataSourceHandler = source => {
-        setDataSource(source);
-        recipeListHandler(source);
-    }
 
     const recipeListHandler = source => {
         for(let i = 0; i < source.length; i++) {
@@ -23,14 +17,16 @@ const RecipePage = props => {
         }
     }
     
-    componentDidMount =  async () => {   
+
+    fetchAPI =  async () => {   
         if(props.ingredientList.length > 0) {
             for(let i = 0; i < props.ingredientList.length; i++) {
                 fetch('https://api.edamam.com/search?q='+ props.ingredientList[i].value +'&app_id=' + SLUGPANTRY_ID +'&app_key=' + SLUGPANTRY_KEY)
                 //.then(console.log(i))
                 .then ((response) => response.json() )
                 .then( (responseJson) => {
-                    dataSourceHandler(responseJson.hits);             
+                    //console.log(responseJson.hits);
+                    recipeListHandler(responseJson.hits);             
                 })
                 .catch((error) => {
                     console.log(error);
@@ -46,7 +42,7 @@ const RecipePage = props => {
 
     let content = <ActivityIndicator/>
     if(isLoading){
-        componentDidMount();
+        fetchAPI();
     }
     if(!isLoading){
         
@@ -54,7 +50,7 @@ const RecipePage = props => {
             keyExtractor={(item, index) => item.id}
             data={recipeList}
             renderItem={itemData => (
-            console.log(itemData.item.recipe.label),
+            //console.log(itemData.item.recipe.label),
             <View style={styles.item}>
                 <Card 
                     title={itemData.item.recipe.label}
