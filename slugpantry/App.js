@@ -38,6 +38,7 @@ export default function App() {
 
   let content = <PantryPage ingredientInputHandlerMaster = {ingredientInputHandler} ingredientList= {ingredientList} addIngredientHandler= {addIngredientHandler}/>;
   if(contentSwitch === 1){
+    //powerSetHandler(ingredientList);
     content = <RecipePage ingredientList = {ingredientList} contentSwitchHandler = {contentSwitchHandler}/>
   }
 
