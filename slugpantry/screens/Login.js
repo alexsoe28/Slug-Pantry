@@ -16,12 +16,12 @@ import {
 import {MaterialCommunityIcons as Icon} from '@expo/vector-icons';
 import * as firebase from 'firebase'
 
-const firebaseInfo = {
-  API_KEY: "AIzaSyDKQOm7H73WlRKKgQ15Gyzjm7d8747q3UQ",
-  AUTH_DOMAIN: "slug-pantry.firebaseapp.com",
-  DATABASE_URL: "https://slug-pantry.firebaseio.com/",
-  PROJECT_ID: "slug-pantry",
-  STORAGE_BUCKET: "slug-pantry.appspot.com"
+const firebaseConfig = {
+  apiKey: "AIzaSyDKQOm7H73WlRKKgQ15Gyzjm7d8747q3UQ",
+  authDomain: "slug-pantry.firebaseapp.com",
+  databaseURL: "https://slug-pantry.firebaseio.com/",
+  projectId: "slug-pantry",
+  storageBucket: "slug-pantry.appspot.com"
 };
 
 export default class App extends React.Component{
