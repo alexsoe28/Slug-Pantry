@@ -51,35 +51,55 @@ export default function App() {
   }
 
   const contentSwitchHandler = (num) => {
-    if(contentSwitch === 3) {
-      setContentSwitch(0);
-    }
-    else if(num === 3){
-      setContentSwitch(3);
-    }
-    else if(contentSwitch === 0){
+    if(contentSwitch === 0) {
       setContentSwitch(1);
     }
-    else{
-      setContentSwitch(0);
+    else if(num === 1){
+      setContentSwitch(2);
+    }
+    else if(contentSwitch === 2){
+      setContentSwitch(1);
+    }
+    else {
+      setContentSwitch(2);
     }
   };
 
-  let content = <PantryPage ingredientInputHandlerMaster = {ingredientInputHandler} ingredientList= {ingredientList} addIngredientHandler= {addIngredientHandler}/>;
-  if(contentSwitch === 1) {
+  let content = <Login contentSwitchHandler = {contentSwitchHandler}/>;
+  if(contentSwitch === 1){
     //powerSetHandler(ingredientList);
-    content = <RecipePage ingredientList = {ingredientList} contentSwitchHandler = {contentSwitchHandler} user = {user}/>
+    content = <PantryPage ingredientInputHandlerMaster = {ingredientInputHandler} ingredientList= {ingredientList} addIngredientHandler= {addIngredientHandler}/>;
   }
-  else if(contentSwitch === 3) {
-    //console.log(user.uid);
+  if(contentSwitch === 2){
+    content = <RecipePage ingredientList = {ingredientList} contentSwitchHandler = {contentSwitchHandler}/>
+  }
+  if(contentSwitch === 3){
     content = <FavoriteRecipePage user = {user}/>
   }
 
+  if(contentSwitch === 0){
+    return(
+      <View style={styles.container}>
+      <Header title="Slug Pantry"/>
+      {content}
+    </View>
+    );
+  }
+  else if(contentSwitch === 1){
+    return (
+      <View style={styles.container}>
+        <Header title="Slug Pantry"/>
+        <Button title='Recipe List' 
+        onPress={contentSwitchHandler}/>
+        {content}
+      </View>
+    );
+  }
+  else if (contentSwitch === 2){
   return (
-
     <View style={styles.container}>
       <Header title="Slug Pantry"/>
-      <Button title='Switch' 
+      <Button title='Pantry Inventory' 
       onPress={contentSwitchHandler}/>
       {content}
       <Button title= 'Go To Favorites'
@@ -87,7 +107,10 @@ export default function App() {
       />
     </View>
   );
+  //Needs return for favorites
+  }
 }
+
 
 const styles = StyleSheet.create({
   container: {
