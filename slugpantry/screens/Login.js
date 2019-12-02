@@ -44,12 +44,12 @@ const Login = props => {
     
     signUp = (email,password)=>{
       try{
-        if (this.state.password.length < 7){
+        if (password.length < 7){
           alert("Password must be at least 8 character long")
           return;          
         }
-        console.log(this.state.email)
-        console.log(this.state.password)
+        console.log(email)
+        console.log(password)
         firebase.auth().createUserWithEmailAndPassword(email, password)
         props.contentSwitchHandler;
       }
@@ -63,7 +63,7 @@ const Login = props => {
       firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
         console.log(user)
       })
-      props.contentSwitchHandler;
+        props.contentSwitchHandler
     }
     catch(error){
       console.log(error)

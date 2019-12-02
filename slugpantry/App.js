@@ -30,6 +30,7 @@ export default function App() {
 
   const contentSwitchHandler = () => {
     if(contentSwitch === 0){
+      console.log("8=================================D")
       setContentSwitch(1);
     }
     else if(contentSwitch ===1){
@@ -45,7 +46,7 @@ export default function App() {
     content = <RecipePage ingredientList = {ingredientList} contentSwitchHandler = {contentSwitchHandler}/>
   }
 */
-  let content = <Login contentSwitch={contentSwitchHandler}/>;
+  let content = <Login contentSwitchHandler = {contentSwitchHandler}/>;
   if(contentSwitch === 1){
     //powerSetHandler(ingredientList);
     content = <PantryPage ingredientInputHandlerMaster = {ingredientInputHandler} ingredientList= {ingredientList} addIngredientHandler= {addIngredientHandler}/>;
@@ -53,10 +54,11 @@ export default function App() {
   if(contentSwitch === 2){
     content = <RecipePage ingredientList = {ingredientList} contentSwitchHandler = {contentSwitchHandler}/>
   }
+
   if(contentSwitch === 0){
     return(
       <View style={styles.container}>
-      <Header title="Slug Pantry Updated"/>
+      <Header title="tired"/>
       {content}
     </View>
     );
