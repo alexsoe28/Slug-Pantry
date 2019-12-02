@@ -58,7 +58,7 @@ export default function App() {
   if(contentSwitch === 0){
     return(
       <View style={styles.container}>
-      <Header title="tired"/>
+      <Header title="Slug Pantry"/>
       {content}
     </View>
     );

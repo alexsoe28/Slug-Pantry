@@ -51,7 +51,7 @@ const Login = props => {
         console.log(email)
         console.log(password)
         firebase.auth().createUserWithEmailAndPassword(email, password)
-        props.contentSwitchHandler;
+        props.contentSwitchHandler();
       }
       catch(error){
         console.log(error)
@@ -63,7 +63,7 @@ const Login = props => {
       firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
         console.log(user)
       })
-        props.contentSwitchHandler
+        props.contentSwitchHandler();
     }
     catch(error){
       console.log(error)
