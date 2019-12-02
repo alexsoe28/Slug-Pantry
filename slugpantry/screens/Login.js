@@ -23,12 +23,12 @@ import {MaterialCommunityIcons as Icon} from '@expo/vector-icons';
 import * as firebase from 'firebase'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDKQOm7H73WlRKKgQ15Gyzjm7d8747q3UQ",
-    authDomain: "slug-pantry.firebaseapp.com",
-    databaseURL: "https://slug-pantry.firebaseio.com/",
-    projectId: "slug-pantry",
-    storageBucket: "slug-pantry.appspot.com"
-  }
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  databaseURL: DATABASE_URL,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET
+}
 firebase.initializeApp(firebaseConfig);
 
 const Login = props => { 

@@ -6,7 +6,7 @@ import PantryPage from './screens/PantryPage';
 import Header from './components/Header';
 import RecipePage from './screens/RecipePage';
 import FavoriteRecipePage from './screens/FavoriteRecipePage';
-
+import Login from './screens/Login'
 
 const firebaseConfig = {
   apiKey: API_KEY,
@@ -108,6 +108,14 @@ export default function App() {
     </View>
   );
   //Needs return for favorites
+  }
+  else {
+    <View style={styles.container}>
+      <Header title="Slug Pantry"/>
+      <Button title='Recipe List' 
+      onPress={contentSwitchHandler}/>
+      {content}
+    </View>
   }
 }
 
