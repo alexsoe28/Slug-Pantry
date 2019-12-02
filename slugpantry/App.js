@@ -1,12 +1,35 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import * as firebase from 'firebase';
+import { API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, STORAGE_BUCKET } from 'react-native-dotenv';
 import PantryPage from './screens/PantryPage';
 import Header from './components/Header';
 import RecipePage from './screens/RecipePage';
+import FavoriteRecipePage from './screens/FavoriteRecipePage';
+
+
+const firebaseConfig = {
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  databaseURL: DATABASE_URL,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET
+}
+
+firebase.initializeApp(firebaseConfig);
+try {
+  firebase.auth().signInWithEmailAndPassword("wkudsk@gmail.com", "123456").then(function(user){
+    //console.log(user);
+  })
+} catch (error) {
+  console.log(error.toString());
+}
+
+
 
 //Switch <RecipePage/> to <PantryPage/> if you want to see that instead of whats currently being displayed
 export default function App() {
-
+  var user = firebase.auth().currentUser;
   const [contentSwitch, setContentSwitch] = useState(0);
   const [ingredientList, setIngredientList] = useState([]);
   const [enterIngredient, setEnterIngredient] = useState('');
@@ -27,8 +50,14 @@ export default function App() {
     })
   }
 
-  const contentSwitchHandler = () => {
-    if(contentSwitch === 0){
+  const contentSwitchHandler = (num) => {
+    if(contentSwitch === 3) {
+      setContentSwitch(0);
+    }
+    else if(num === 3){
+      setContentSwitch(3);
+    }
+    else if(contentSwitch === 0){
       setContentSwitch(1);
     }
     else{
@@ -37,9 +66,13 @@ export default function App() {
   };
 
   let content = <PantryPage ingredientInputHandlerMaster = {ingredientInputHandler} ingredientList= {ingredientList} addIngredientHandler= {addIngredientHandler}/>;
-  if(contentSwitch === 1){
+  if(contentSwitch === 1) {
     //powerSetHandler(ingredientList);
-    content = <RecipePage ingredientList = {ingredientList} contentSwitchHandler = {contentSwitchHandler}/>
+    content = <RecipePage ingredientList = {ingredientList} contentSwitchHandler = {contentSwitchHandler} user = {user}/>
+  }
+  else if(contentSwitch === 3) {
+    //console.log(user.uid);
+    content = <FavoriteRecipePage user = {user}/>
   }
 
   return (
@@ -49,6 +82,9 @@ export default function App() {
       <Button title='Switch' 
       onPress={contentSwitchHandler}/>
       {content}
+      <Button title= 'Go To Favorites'
+      onPress={() => contentSwitchHandler(3)}
+      />
     </View>
   );
 }
