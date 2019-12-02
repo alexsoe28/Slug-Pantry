@@ -133,6 +133,6 @@ const styles = StyleSheet.create({
   buttonStyle: {
     borderColor: 'black',
     flexDirection: 'row',
-    color: 'navy'
+    justifyContent: 'space-between'
   }
 });

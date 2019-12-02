@@ -46,8 +46,8 @@ const Login = props => {
           alert("Password must be at least 8 character long")
           return;          
         }
-        console.log(email)
-        console.log(password)
+        //console.log(email)
+        //console.log(password)
         firebase.auth().createUserWithEmailAndPassword(email, password)
         logIn(email, password);
       }
