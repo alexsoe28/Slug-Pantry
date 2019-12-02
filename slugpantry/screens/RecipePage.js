@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, Alert, ActivityIndicator, FlatList} from 'react-native';
 
 import Card from '../components/Card';
@@ -12,15 +12,15 @@ const RecipePage = props => {
 
     const recipeListHandler = source => {
         for(let i = 0; i < source.length; i++) {
-            setrecipeList(currentRecipies => [
-                ...currentRecipies, source[i]]);
+            setrecipeList(currentRecipes => [
+                ...currentRecipes, source[i]]);
         }
     }
     
 
     fetchAPI =  async () => {   
         if(props.ingredientList.length > 0) {
-            for(let i = 0; i < props.ingredientList.length; i++) {
+            for(let i = 0; (i < props.ingredientList.length) && (i < 6); i++) {
                 fetch('https://api.edamam.com/search?q='+ props.ingredientList[i].value +'&app_id=' + SLUGPANTRY_ID +'&app_key=' + SLUGPANTRY_KEY)
                 //.then(console.log(i))
                 .then ((response) => response.json() )
@@ -56,11 +56,11 @@ const RecipePage = props => {
                     title={itemData.item.recipe.label}
                     url={itemData.item.recipe.url}
                     source={itemData.item.recipe.image}
-                    //key={itemData.item.id}
+                    userID = {props.user.uid}
+                    favorite= {false}
                     />
             </View>)}/>;
     }
-    
     
     return(
         

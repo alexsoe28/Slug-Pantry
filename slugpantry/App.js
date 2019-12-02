@@ -1,13 +1,35 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import * as firebase from 'firebase';
+import { API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, STORAGE_BUCKET } from 'react-native-dotenv';
 import PantryPage from './screens/PantryPage';
 import Header from './components/Header';
 import RecipePage from './screens/RecipePage';
-import Login from './screens/Login';
+import FavoriteRecipePage from './screens/FavoriteRecipePage';
+
+
+const firebaseConfig = {
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  databaseURL: DATABASE_URL,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET
+}
+
+firebase.initializeApp(firebaseConfig);
+try {
+  firebase.auth().signInWithEmailAndPassword("wkudsk@gmail.com", "123456").then(function(user){
+    //console.log(user);
+  })
+} catch (error) {
+  console.log(error.toString());
+}
+
+
 
 //Switch <RecipePage/> to <PantryPage/> if you want to see that instead of whats currently being displayed
 export default function App() {
-
+  var user = firebase.auth().currentUser;
   const [contentSwitch, setContentSwitch] = useState(0);
   const [ingredientList, setIngredientList] = useState([]);
   const [enterIngredient, setEnterIngredient] = useState('');
@@ -28,24 +50,21 @@ export default function App() {
     })
   }
 
-  const contentSwitchHandler = () => {
-    if(contentSwitch === 0){
-      console.log("8=================================D")
+  const contentSwitchHandler = (num) => {
+    if(contentSwitch === 0) {
       setContentSwitch(1);
     }
-    else if(contentSwitch ===1){
+    else if(num === 1){
       setContentSwitch(2);
     }
-    else{
-      setContentSwitch(1)
+    else if(contentSwitch === 2){
+      setContentSwitch(1);
+    }
+    else {
+      setContentSwitch(2);
     }
   };
-  /*let content = <PantryPage ingredientInputHandlerMaster = {ingredientInputHandler} ingredientList= {ingredientList} addIngredientHandler= {addIngredientHandler}/>;
-  if(contentSwitch === 1){
-    //powerSetHandler(ingredientList);
-    content = <RecipePage ingredientList = {ingredientList} contentSwitchHandler = {contentSwitchHandler}/>
-  }
-*/
+
   let content = <Login contentSwitchHandler = {contentSwitchHandler}/>;
   if(contentSwitch === 1){
     //powerSetHandler(ingredientList);
@@ -53,6 +72,9 @@ export default function App() {
   }
   if(contentSwitch === 2){
     content = <RecipePage ingredientList = {ingredientList} contentSwitchHandler = {contentSwitchHandler}/>
+  }
+  if(contentSwitch === 3){
+    content = <FavoriteRecipePage user = {user}/>
   }
 
   if(contentSwitch === 0){
@@ -73,27 +95,23 @@ export default function App() {
       </View>
     );
   }
-  else{
+  else if (contentSwitch === 2){
   return (
     <View style={styles.container}>
       <Header title="Slug Pantry"/>
       <Button title='Pantry Inventory' 
       onPress={contentSwitchHandler}/>
       {content}
+      <Button title= 'Go To Favorites'
+      onPress={() => contentSwitchHandler(3)}
+      />
     </View>
   );
+  //Needs return for favorites
   }
 }
-/*
-return (
-  <View style={styles.container}>
-    <Header title="Slug Pantry"/>
-    <Button title='Switch' 
-    onPress={contentSwitchHandler}/>
-    {content}
-  </View>
-);
-}*/
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
