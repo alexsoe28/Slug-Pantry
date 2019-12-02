@@ -17,6 +17,10 @@ const PantryPage = props => {
     props.ingredientInputHandlerMaster(enteredText);
     setEnterIngredient(enteredText);
   };
+
+  componentDidMount = () => {
+    // get ingredients from db here
+  }
   
   return (
     <View style={styles.container}>
