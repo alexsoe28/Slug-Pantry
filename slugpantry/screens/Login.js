@@ -1,4 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { API_KEY,
+    AUTH_DOMAIN,
+    DATABASE_URL,
+    PROJECT_ID,
+    STORAGE_BUCKET
+} from 'react-native-dotenv';
 import { StyleSheet, 
   Text,
   View,
@@ -17,23 +23,26 @@ import {MaterialCommunityIcons as Icon} from '@expo/vector-icons';
 import * as firebase from 'firebase'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDKQOm7H73WlRKKgQ15Gyzjm7d8747q3UQ",
-  authDomain: "slug-pantry.firebaseapp.com",
-  databaseURL: "https://slug-pantry.firebaseio.com/",
-  projectId: "slug-pantry",
-  storageBucket: "slug-pantry.appspot.com"
-};
-
-export default class App extends React.Component{
-
-  constructor(props){
-    super(props)
-    this.state = ({
-      email:'',
-      password:''
-    })
+    apiKey: "AIzaSyDKQOm7H73WlRKKgQ15Gyzjm7d8747q3UQ",
+    authDomain: "slug-pantry.firebaseapp.com",
+    databaseURL: "https://slug-pantry.firebaseio.com/",
+    projectId: "slug-pantry",
+    storageBucket: "slug-pantry.appspot.com"
   }
-  signUp = (email,password)=>{
+firebase.initializeApp(firebaseConfig);
+
+const Login = props => { 
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const setEmailHandler = newEmail => {
+        setEmail(newEmail);
+      } 
+      const setPasswordHandler = newPassword => {
+        setPassword(newPassword);
+      } 
+    
+    signUp = (email,password)=>{
       try{
         if (this.state.password.length < 7){
           alert("Password must be at least 8 character long")
@@ -42,6 +51,7 @@ export default class App extends React.Component{
         console.log(this.state.email)
         console.log(this.state.password)
         firebase.auth().createUserWithEmailAndPassword(email, password)
+        props.contentSwitchHandler;
       }
       catch(error){
         console.log(error)
@@ -53,59 +63,58 @@ export default class App extends React.Component{
       firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
         console.log(user)
       })
-    
+      props.contentSwitchHandler;
     }
     catch(error){
       console.log(error)
     }
-
   }
 
-  render(){
-    return (
-      <Container style={styles.container}>
-        <Form>
-          <Item floatingLabel>
-            <Label>Email</Label>
-            <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            onChangeText={(email)=>this.setState({email})}
-            />
-          </Item>
+return (
+    <Container style={styles.container}>
+    <Form>
+        <Item floatingLabel>
+        <Label>Email</Label>
+        <Input
+        autoCorrect={false}
+        autoCapitalize="none"
+        onChangeText={(email)=>setEmailHandler(email)}
+        />
+        </Item>
 
-          <Item floatingLabel>
-            <Label>Password</Label>
-            <Input
-            secureTextEntry={true}
-            autoCorrect={false}
-            autoCapitalize="none"
-            onChangeText={(password)=>this.setState({password})}
-            />
-            <Icon name="eye" size={20}/>
-          </Item>
+        <Item floatingLabel>
+        <Label>Password</Label>
+        <Input
+        secureTextEntry={true}
+        autoCorrect={false}
+        autoCapitalize="none"
+        onChangeText={(password)=>setPasswordHandler(password)}
+        />
+        <Icon name="eye" size={20}/>
+        </Item>
 
-          <Button style={{marginTop: 10}}
-          full
-          success
-          onPress={()=>this.logIn(this.state.email,this.state.password)}
-          >
-            <Text style={{color:'white'}}>Login</Text> 
-          </Button>
+        <Button style={{marginTop: 10}}
+        full
+        success
+        onPress={()=>logIn(email, password)}
+        >
+        <Text style={{color:'white'}}>Login</Text> 
+        </Button>
 
-          <Button style={{marginTop: 10}}
-          full
-          Primary
-          onPress={()=>this.signUp(this.state.email,this.state.password)}
-          >
-            <Text style={{color:'white'}}>Sign Up</Text>
-          </Button>
+        <Button style={{marginTop: 10}}
+        full
+        Primary
+        onPress={()=>signUp(email, password)}
+        >
+        <Text style={{color:'white'}}>Sign Up</Text>
+        </Button>
 
-        </Form>
-      </Container>
-    );
-  }
+    </Form>
+    </Container>
+);
 }
+
+
 const styles = StyleSheet.create({
 container:{
   flex:1,
@@ -114,3 +123,5 @@ container:{
   padding:10
 }
 })
+
+export default Login;
