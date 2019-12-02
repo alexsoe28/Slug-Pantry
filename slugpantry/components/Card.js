@@ -12,8 +12,6 @@ const Card = props  => {
     }
 
     const [buttonTitle, setButtonTitle] = useState(startingButtonTitle);
-    //const [favorite, setFavorite] = useState(props.favorite);
-    //let favorite = props.favorite;
     let key = null;
     const linkHandler = () => {
         Linking.openURL(props.url).catch((err) => console.error('An error occurred', err));

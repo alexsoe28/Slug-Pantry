@@ -18,13 +18,7 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig);
-try {
-  firebase.auth().signInWithEmailAndPassword("wkudsk@gmail.com", "123456").then(function(user){
-    //console.log(user);
-  })
-} catch (error) {
-  console.log(error.toString());
-}
+
 
 
 
@@ -67,16 +61,17 @@ export default function App() {
     if(contentSwitch === 0) {
       setContentSwitch(1);
     }
-    else if(num === 1){
-      setContentSwitch(2);
-    }
     else if(contentSwitch === 2){
       setContentSwitch(1);
     }
     else {
-      setContentSwitch(2);
+      setContentSwitch(1);
     }
   };
+
+  const contentFavoritesHandler = () => {
+    setContentSwitch(3);
+  }
 
   let content = <Login contentSwitchHandler = {contentSwitchHandler}/>;
   if(contentSwitch === 1){
@@ -93,7 +88,7 @@ export default function App() {
   if(contentSwitch === 0){
     return(
       <View style={styles.container}>
-      <Header title="Slug Pantry"/>
+      <Header title="Welcome to Slug Pantry"/>
       {content}
     </View>
     );
@@ -101,26 +96,44 @@ export default function App() {
   else if(contentSwitch === 1){
     return (
       <View style={styles.container}>
-        <Header title="Slug Pantry"/>
-        <Button title='Recipe List' 
-        onPress={contentSwitchHandler}/>
-        {content}
+        <Header title="Your Pantry"/>
+        <View style = {styles.buttonStyle}>
+          <Button title='Go To Pantry Inventory' 
+          onPress={contentSwitchHandler}/>
+          <Button title= 'Go To Favorites'
+          onPress={contentFavoritesHandler}
+          />
+        </View>
+      {content}
       </View>
     );
   }
   else if (contentSwitch === 2){
   return (
     <View style={styles.container}>
-      <Header title="Slug Pantry"/>
-      <Button title='Pantry Inventory' 
-      onPress={contentSwitchHandler}/>
+      <Header title="Recipe List"/>
+      <View style = {styles.buttonStyle}>
+        <Button title='Go To Pantry Inventory' 
+        onPress={contentSwitchHandler}/>
+        <Button title= 'Go To Favorites'
+        onPress={contentFavoritesHandler}
+        />
+      </View>
       {content}
-      <Button title= 'Go To Favorites'
-      onPress={() => contentSwitchHandler(3)}
-      />
     </View>
   );
-  //Needs return for favorites
+  }
+  else {
+    return (
+      <View style={styles.container}>
+      <Header title="Your Favorite Recipes"/>
+      <View style = {styles.buttonStyle}>
+        <Button title='Go To Pantry Inventory' 
+        onPress={contentSwitchHandler}/>    
+      </View>
+      {content}
+    </View>
+    );
   }
 }
 
@@ -129,4 +142,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  buttonStyle: {
+    borderColor: 'black',
+    flexDirection: 'row',
+    color: 'navy'
+  }
 });

@@ -1,10 +1,4 @@
 import React, {useState} from 'react';
-import { API_KEY,
-    AUTH_DOMAIN,
-    DATABASE_URL,
-    PROJECT_ID,
-    STORAGE_BUCKET
-} from 'react-native-dotenv';
 import { StyleSheet, 
   Text,
   View,
@@ -42,6 +36,19 @@ const Login = props => {
         setPassword(newPassword);
       } 
     
+    logIn = (email,password)=>{
+      try{
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
+          //console.log(user)
+          props.contentSwitchHandler();
+        })
+          
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
+
     signUp = (email,password)=>{
       try{
         if (password.length < 7){
@@ -51,7 +58,7 @@ const Login = props => {
         console.log(email)
         console.log(password)
         firebase.auth().createUserWithEmailAndPassword(email, password)
-        props.contentSwitchHandler();
+        logIn(email, password);
       }
       catch(error){
         console.log(error)
