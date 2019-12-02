@@ -1,10 +1,4 @@
 import React, {useState} from 'react';
-import { API_KEY,
-    AUTH_DOMAIN,
-    DATABASE_URL,
-    PROJECT_ID,
-    STORAGE_BUCKET
-} from 'react-native-dotenv';
 import { StyleSheet, 
   Text,
   View,
@@ -22,15 +16,6 @@ import {
 import {MaterialCommunityIcons as Icon} from '@expo/vector-icons';
 import * as firebase from 'firebase'
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDKQOm7H73WlRKKgQ15Gyzjm7d8747q3UQ",
-    authDomain: "slug-pantry.firebaseapp.com",
-    databaseURL: "https://slug-pantry.firebaseio.com/",
-    projectId: "slug-pantry",
-    storageBucket: "slug-pantry.appspot.com"
-  }
-firebase.initializeApp(firebaseConfig);
-
 const Login = props => { 
 
     const [email, setEmail] = useState("");
@@ -42,6 +27,18 @@ const Login = props => {
         setPassword(newPassword);
       } 
     
+    logIn = (email,password)=>{
+      try{
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
+          console.log(user)
+        })
+          props.contentSwitchHandler();
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
+
     signUp = (email,password)=>{
       try{
         if (password.length < 7){
@@ -51,24 +48,14 @@ const Login = props => {
         console.log(email)
         console.log(password)
         firebase.auth().createUserWithEmailAndPassword(email, password)
-        props.contentSwitchHandler();
+        logIn(email, password);
       }
       catch(error){
         console.log(error)
       }
   }
 
-  logIn = (email,password)=>{
-    try{
-      firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
-        console.log(user)
-      })
-        props.contentSwitchHandler();
-    }
-    catch(error){
-      console.log(error)
-    }
-  }
+  
 
 return (
     <Container style={styles.container}>

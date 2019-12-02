@@ -6,6 +6,7 @@ import PantryPage from './screens/PantryPage';
 import Header from './components/Header';
 import RecipePage from './screens/RecipePage';
 import FavoriteRecipePage from './screens/FavoriteRecipePage';
+import Login from './screens/Login';
 
 
 const firebaseConfig = {
@@ -17,13 +18,7 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig);
-try {
-  firebase.auth().signInWithEmailAndPassword("wkudsk@gmail.com", "123456").then(function(user){
-    //console.log(user);
-  })
-} catch (error) {
-  console.log(error.toString());
-}
+
 
 
 
@@ -50,12 +45,9 @@ export default function App() {
     })
   }
 
-  const contentSwitchHandler = (num) => {
+  const contentSwitchHandler = () => {
     if(contentSwitch === 0) {
       setContentSwitch(1);
-    }
-    else if(num === 1){
-      setContentSwitch(2);
     }
     else if(contentSwitch === 2){
       setContentSwitch(1);
@@ -65,13 +57,17 @@ export default function App() {
     }
   };
 
+  const contentFavoritesHandler = () => {
+    setContentSwitch(3);
+  }
+
   let content = <Login contentSwitchHandler = {contentSwitchHandler}/>;
   if(contentSwitch === 1){
     //powerSetHandler(ingredientList);
     content = <PantryPage ingredientInputHandlerMaster = {ingredientInputHandler} ingredientList= {ingredientList} addIngredientHandler= {addIngredientHandler}/>;
   }
   if(contentSwitch === 2){
-    content = <RecipePage ingredientList = {ingredientList} contentSwitchHandler = {contentSwitchHandler}/>
+    content = <RecipePage ingredientList = {ingredientList} contentSwitchHandler = {contentSwitchHandler} user = {user}/>
   }
   if(contentSwitch === 3){
     content = <FavoriteRecipePage user = {user}/>
@@ -103,11 +99,20 @@ export default function App() {
       onPress={contentSwitchHandler}/>
       {content}
       <Button title= 'Go To Favorites'
-      onPress={() => contentSwitchHandler(3)}
+      onPress={contentFavoritesHandler}
       />
     </View>
   );
-  //Needs return for favorites
+  }
+  else {
+    return (
+      <View style={styles.container}>
+      <Header title="Slug Pantry"/>
+      <Button title='Pantry Inventory' 
+      onPress={contentSwitchHandler}/>
+      {content}
+    </View>
+    );
   }
 }
 
