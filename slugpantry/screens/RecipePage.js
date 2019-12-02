@@ -25,6 +25,9 @@ const RecipePage = props => {
                 //.then(console.log(i))
                 .then ((response) => response.json() )
                 .then( (responseJson) => {
+                    if (responseJson.lenght === 0){
+                        alert("No matches found for " + props.ingredientList[i].value + ". Check speeling or enter different pantry items")
+                    }
                     //console.log(responseJson.hits);
                     recipeListHandler(responseJson.hits);             
                 })
