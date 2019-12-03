@@ -25,12 +25,12 @@ const PantryPage = props => {
     if (message.userID == props.user.uid) {
       props.addIngredientHandlerByVal(message.item);
     }
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    console.log(props.ingredientList);
+    //console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    //console.log(props.ingredientList);
   }
 
   componentDidMount = () => {
-    console.log("before prints")
+    //console.log("before prints")
     firebase
     .database()
     .ref()
@@ -79,7 +79,7 @@ const PantryPage = props => {
                 <Text>{itemData.item.value}</Text>  
                 <View style={styles.buttonContainer}>
                   <Button title="Remove"
-                  color = 'black'
+                  color = 'red'
                   onPress={deleteItemByID.bind(this, itemData.item.id)}
                   />
                 </View>
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   listItem: {
     padding: 5,
     margin: 3,
-    backgroundColor: 'lemonchiffon',
+    backgroundColor: 'lightblue',
     borderColor: 'black',
     borderWidth:1
   },
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     height: 40,
     flexDirection: 'row',
     alignItems:'flex-end',
-    backgroundColor: 'lightcoral'
+    color: 'red'
   }
 });
 

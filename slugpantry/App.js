@@ -106,11 +106,10 @@ export default function App() {
       <View style={styles.container}>
         <Header title="Your Pantry"/>
         <View style = {styles.buttonContainer}>
-        <Button style = {styles.buttonStyle} title='Go To Recipe List' 
-        onPress={contentSwitchHandler}/>
-        <Button style = {styles.buttonStyle} title= 'Go To Favorites'
-        onPress={contentFavoritesHandler}
-        />
+          <Button style = {styles.buttonStyle} title='Go To Recipe List' 
+          onPress={contentSwitchHandler}/>
+          <Button style = {styles.buttonStyle} title= 'Go To Favorites'
+          onPress={contentFavoritesHandler}/>
       </View>
       {content}
       </View>
@@ -137,10 +136,12 @@ export default function App() {
   else {
     return (
       <View style={styles.container}>
-      <Header title="Your Favorite Recipes"/>
-      <View style = {styles.buttonStyle}>
-        <Button title='Go To Pantry Inventory' 
-        onPress={contentSwitchHandler}/>    
+      <Header title="Favorite Recipes"/>
+      <View style = {styles.buttonContainer}>
+        <View>
+          <Button style = {styles.buttonStyle} title='Go To Recipe List' 
+          onPress={contentSwitchHandler}/>
+        </View>
       </View>
       {content}
     </View>
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonStyle: {
-    borderColor: 'black',
+    color: 'darkblue',
     flex: 1
   },
   buttonContainer:{
