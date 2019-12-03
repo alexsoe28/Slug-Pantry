@@ -33,21 +33,27 @@ export default function App() {
     setEnterIngredient(enteredText);
   };
 
-  const addIngredientHandler = () => {
+  const addIngredientHandler = (keyID) => {
     setIngredientList(currentIngredients => [
       ...currentIngredients, 
-      { id: Math.random().toString(), value: enterIngredient }
+      { id: keyID.toString(), value: enterIngredient }
     ]);
   };
 
-  const addIngredientHandlerByVal = ingredient => {
+  const addIngredientHandlerByVal = (ingredient, keyID) => {
+    console.log("ADD INGREDIENT HANDLER BY VAL");
+    console.log(keyID);
     setIngredientList(currentIngredients => [
       ...currentIngredients, 
-      { id: Math.random().toString(), value: ingredient }
+      { id: keyID.toString(), value: ingredient }
     ]);
   };
 
   deleteItemByID = ingredientId =>{
+    console.log("AND THE KEY ID IS");
+    console.log(ingredientId);
+    var keyRef = firebase.database().ref('/Ingredients').child(ingredientId);
+    keyRef.remove();
     setIngredientList(currentIngredients =>{
       return currentIngredients.filter((ingredient) => ingredient.id !== ingredientId)
     })
@@ -61,7 +67,7 @@ export default function App() {
     }).then(function() {
       console.log('Synchronization succeeded');
     })
-    addIngredientHandler();
+    addIngredientHandler(key);
   }
 
 
