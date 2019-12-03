@@ -49,8 +49,8 @@ export default function App() {
     if(contentSwitch === 0) {
       setContentSwitch(1);
     }
-    else if(contentSwitch === 2){
-      setContentSwitch(1);
+    else if(contentSwitch === 1){
+      setContentSwitch(2);
     }
     else {
       setContentSwitch(1);
@@ -86,7 +86,7 @@ export default function App() {
       <View style={styles.container}>
         <Header title="Your Pantry"/>
         <View style = {styles.buttonStyle}>
-          <Button title='Go To Pantry Inventory' 
+          <Button title='Go To Pantry Recipe List' 
           onPress={contentSwitchHandler}/>
           <Button title= 'Go To Favorites'
           onPress={contentFavoritesHandler}
