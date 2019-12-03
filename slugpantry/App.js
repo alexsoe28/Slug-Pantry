@@ -106,9 +106,9 @@ export default function App() {
       <View style={styles.container}>
         <Header title="Your Pantry"/>
         <View style = {styles.buttonStyle}>
-          <Button title='Go To Pantry Recipe List' 
+          <Button color= 'darkblue' title='Go To Recipe List' 
           onPress={contentSwitchHandler}/>
-          <Button title= 'Go To Favorites'
+          <Button color= 'darkblue' title= 'Go To Favorites'
           onPress={contentFavoritesHandler}
           />
         </View>
@@ -121,9 +121,9 @@ export default function App() {
     <View style={styles.container}>
       <Header title="Recipe List"/>
       <View style = {styles.buttonStyle}>
-        <Button title='Go To Pantry Inventory' 
+        <Button color= 'darkblue' title='Go To Pantry Inventory' 
         onPress={contentSwitchHandler}/>
-        <Button title= 'Go To Favorites'
+        <Button color= 'darkblue' title= 'Go To Favorites'
         onPress={contentFavoritesHandler}
         />
       </View>
@@ -136,7 +136,7 @@ export default function App() {
       <View style={styles.container}>
       <Header title="Your Favorite Recipes"/>
       <View style = {styles.buttonStyle}>
-        <Button title='Go To Pantry Inventory' 
+        <Button color= 'darkblue' title='Go To Pantry Inventory' 
         onPress={contentSwitchHandler}/>    
       </View>
       {content}
@@ -153,6 +153,6 @@ const styles = StyleSheet.create({
   buttonStyle: {
     borderColor: 'black',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    alignItems: 'center'
   }
 });
