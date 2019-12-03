@@ -85,13 +85,13 @@ export default function App() {
     return (
       <View style={styles.container}>
         <Header title="Your Pantry"/>
-        <View style = {styles.buttonStyle}>
-          <Button title='Go To Pantry Recipe List' 
-          onPress={contentSwitchHandler}/>
-          <Button title= 'Go To Favorites'
-          onPress={contentFavoritesHandler}
-          />
-        </View>
+        <View style = {styles.buttonContainer}>
+        <Button style = {styles.buttonStyle} title='Go To Recipe List' 
+        onPress={contentSwitchHandler}/>
+        <Button style = {styles.buttonStyle} title= 'Go To Favorites'
+        onPress={contentFavoritesHandler}
+        />
+      </View>
       {content}
       </View>
     );
@@ -100,12 +100,15 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Header title="Recipe List"/>
-      <View style = {styles.buttonStyle}>
-        <Button title='Go To Pantry Inventory' 
-        onPress={contentSwitchHandler}/>
-        <Button title= 'Go To Favorites'
-        onPress={contentFavoritesHandler}
-        />
+      <View style = {styles.buttonContainer}>
+        <View>
+          <Button style = {styles.buttonStyle} title='Go To Pantry Inventory' 
+          onPress={contentSwitchHandler}/>
+        </View>
+        <View>
+          <Button style = {styles.buttonStyle} title= 'Go To Favorites'
+          onPress={contentFavoritesHandler}/>
+        </View>
       </View>
       {content}
     </View>
@@ -132,7 +135,13 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     borderColor: 'black',
+    flex: 1
+  },
+  buttonContainer:{
+    padding: 5,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-evenly',
+    alignItems: 'center'
+
   }
 });

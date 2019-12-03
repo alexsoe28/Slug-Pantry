@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Slug Pantry Demo Work",
+    "name": "Slug Pantry Demo",
     "slug": "slugpantry-demo",
     "privacy": "public",
     "sdkVersion": "35.0.0",
@@ -25,6 +25,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "An app to help you decide what to cook"
   }
 }
