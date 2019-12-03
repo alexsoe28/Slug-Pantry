@@ -39,6 +39,14 @@ export default function App() {
       { id: Math.random().toString(), value: enterIngredient }
     ]);
   };
+
+  const addIngredientHandlerByVal = ingredient => {
+    setIngredientList(currentIngredients => [
+      ...currentIngredients, 
+      { id: Math.random().toString(), value: ingredient }
+    ]);
+  };
+
   deleteItemByID = ingredientId =>{
     setIngredientList(currentIngredients =>{
       return currentIngredients.filter((ingredient) => ingredient.id !== ingredientId)
@@ -76,7 +84,7 @@ export default function App() {
   let content = <Login contentSwitchHandler = {contentSwitchHandler}/>;
   if(contentSwitch === 1){
     //powerSetHandler(ingredientList);
-    content = <PantryPage ingredientInputHandlerMaster = {ingredientInputHandler} ingredientList= {ingredientList} addIngredientHandler= {addIngredientMaster}/>;
+    content = <PantryPage ingredientInputHandlerMaster = {ingredientInputHandler} ingredientList= {ingredientList} addIngredientHandler= {addIngredientMaster} user= {user} addIngredientHandlerByVal={addIngredientHandlerByVal}/>;
   }
   if(contentSwitch === 2){
     content = <RecipePage ingredientList = {ingredientList} contentSwitchHandler = {contentSwitchHandler} user = {user}/>
