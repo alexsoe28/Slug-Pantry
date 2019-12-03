@@ -21,34 +21,27 @@ const PantryPage = props => {
     setEnterIngredient(enteredText);
   };
 
-  const updateList = message => {
+  const updateList = (message, keyID) => {
+    console.log("@@@@@@@@@");
+    console.log(message.userID);
     if (message.userID == props.user.uid) {
-      props.addIngredientHandlerByVal(message.item);
+      props.addIngredientHandlerByVal(message.item, keyID);
     }
-    //console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    //console.log(props.ingredientList);
   }
 
   componentDidMount = () => {
-    //console.log("before prints")
-    firebase
-    .database()
-    .ref()
-    .child("/Ingredients")
-    .once("value", snapshot => {
-      const data = snapshot.val()
-      if (snapshot.val()) {
-        Object
-          .keys(data)
-          .forEach(message => updateList(data[message]));
-          // .forEach(message => initMessages.push(data[message]));
-        // this.setState({
-        //   messages: initMessages
-        // })
-        // console.log("printing init messages");
-        // console.log(initMessages);
-      }
-    });
+    firebase.database().ref("/Ingredients").once('value', function (snapshot) {
+      var data = [];
+      snapshot.forEach(function(childSnapshot) {
+        var key = childSnapshot.key;
+        var uid = childSnapshot.val().userID;
+        // console.log("What will said");
+        // console.log(childSnapshot);
+        updateList(childSnapshot.val(), key);
+      });
+    })
+
+    //
   }
 
   if (doOnce) {
