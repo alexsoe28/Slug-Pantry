@@ -2,17 +2,22 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image, Button, Linking} from 'react-native';
 import * as firebase from 'firebase';
 
-
+let doOnce = true;
+var key = null;
+var favorite = true;
 
 const Card = props  => {
-    let favorite = props.favorite;
+    if(doOnce){
+        doOnce = false;
+        favorite = props.favorite;
+        key = props.key;
+    }
     let startingButtonTitle = 'Favorite';
     if(favorite) {
         startingButtonTitle = 'Unfavorite';
     }
 
     const [buttonTitle, setButtonTitle] = useState(startingButtonTitle);
-    let key = null;
     const linkHandler = () => {
         Linking.openURL(props.url).catch((err) => console.error('An error occurred', err));
     };

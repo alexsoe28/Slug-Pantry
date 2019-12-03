@@ -27,6 +27,7 @@ const PantryPage = props => {
     if (message.userID == props.user.uid) {
       props.addIngredientHandlerByVal(message.item, keyID);
     }
+<<<<<<< HEAD
   }
 
   componentDidMount = () => {
@@ -42,6 +43,32 @@ const PantryPage = props => {
     })
 
     //
+=======
+    //console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    //console.log(props.ingredientList);
+  }
+
+  componentDidMount = () => {
+    //console.log("before prints")
+    firebase
+    .database()
+    .ref()
+    .child("/Ingredients")
+    .once("value", snapshot => {
+      const data = snapshot.val()
+      if (snapshot.val()) {
+        Object
+          .keys(data)
+          .forEach(message => updateList(data[message]));
+          // .forEach(message => initMessages.push(data[message]));
+        // this.setState({
+        //   messages: initMessages
+        // })
+        // console.log("printing init messages");
+        // console.log(initMessages);
+      }
+    });
+>>>>>>> a2b36f089dbc01f05af4e393e87609dcdc28bd6c
   }
 
   if (doOnce) {
@@ -72,7 +99,7 @@ const PantryPage = props => {
                 <Text>{itemData.item.value}</Text>  
                 <View style={styles.buttonContainer}>
                   <Button title="Remove"
-                  color = 'black'
+                  color = 'red'
                   onPress={deleteItemByID.bind(this, itemData.item.id)}
                   />
                 </View>
@@ -187,7 +214,7 @@ const styles = StyleSheet.create({
   listItem: {
     padding: 5,
     margin: 3,
-    backgroundColor: 'lemonchiffon',
+    backgroundColor: 'lightblue',
     borderColor: 'black',
     borderWidth:1
   },
@@ -196,7 +223,7 @@ const styles = StyleSheet.create({
     height: 40,
     flexDirection: 'row',
     alignItems:'flex-end',
-    backgroundColor: 'lightcoral'
+    color: 'red'
   }
 });
 

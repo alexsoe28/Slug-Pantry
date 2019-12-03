@@ -68,7 +68,7 @@ const Login = props => {
   logIn = (email,password)=>{
     try{
       firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
-        console.log(user)
+        //console.log(user)
         props.contentSwitchHandler();
       })
         // props.contentSwitchHandler();

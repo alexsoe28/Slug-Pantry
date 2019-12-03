@@ -28,14 +28,13 @@ const FavoriteRecipePage = (props) => {
             let userID = props.user.uid;
             var data = [];
             snapshot.forEach(function(childSnapshot) {
+                var key = childSnapshot.key;
+                var uid = childSnapshot.val().userID;
+                //console.log( props.user.uid + " :" + uid);
                 
-                var key = childSnapshot.val().userID;
-                
-                //console.log( props.user.uid + " :" + key);
-                
-                if(userID === key) {
+                if(userID === uid) {
                     console.log
-                    data.push(childSnapshot.val());
+                    data.push({ id: key, value: childSnapshot.val() });
                 }
             });
             
@@ -57,14 +56,15 @@ const FavoriteRecipePage = (props) => {
             keyExtractor={(item, index) => item.id}
             data={favoriteRecipeList}
             renderItem={itemData => (
-            //console.log(itemData),
+            //console.log(itemData.item.id),
             <View style={styles.item}>
                 <Card 
-                    title={itemData.item.label}
-                    url={itemData.item.url}
-                    source={itemData.item.image}
+                    title={itemData.item.value.label}
+                    url={itemData.item.value.url}
+                    source={itemData.item.value.image}
                     userID = {props.user.uid}
-                    favorite = {true}
+                    favorite = {false}
+                    key = {itemData.item.id}
                     />
             </View>)}/>;
     }
