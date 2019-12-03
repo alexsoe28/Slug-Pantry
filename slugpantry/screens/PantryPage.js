@@ -8,6 +8,9 @@ import {
   View,
   FlatList
 } from 'react-native';
+import * as firebase from 'firebase';
+
+let doOnce = true;
 
 const PantryPage = props => {
 
@@ -17,6 +20,42 @@ const PantryPage = props => {
     props.ingredientInputHandlerMaster(enteredText);
     setEnterIngredient(enteredText);
   };
+
+  const updateList = message => {
+    if (message.userID == props.user.uid) {
+      props.addIngredientHandlerByVal(message.item);
+    }
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    console.log(props.ingredientList);
+  }
+
+  componentDidMount = () => {
+    console.log("before prints")
+    firebase
+    .database()
+    .ref()
+    .child("/Ingredients")
+    .once("value", snapshot => {
+      const data = snapshot.val()
+      if (snapshot.val()) {
+        Object
+          .keys(data)
+          .forEach(message => updateList(data[message]));
+          // .forEach(message => initMessages.push(data[message]));
+        // this.setState({
+        //   messages: initMessages
+        // })
+        // console.log("printing init messages");
+        // console.log(initMessages);
+      }
+    });
+  }
+
+  if (doOnce) {
+    doOnce = false;
+    componentDidMount();
+  }
+  // componentDidMount();
   
   return (
     <View style={styles.container}>

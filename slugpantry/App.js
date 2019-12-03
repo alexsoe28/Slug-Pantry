@@ -39,13 +39,33 @@ export default function App() {
       { id: Math.random().toString(), value: enterIngredient }
     ]);
   };
+
+  const addIngredientHandlerByVal = ingredient => {
+    setIngredientList(currentIngredients => [
+      ...currentIngredients, 
+      { id: Math.random().toString(), value: ingredient }
+    ]);
+  };
+
   deleteItemByID = ingredientId =>{
     setIngredientList(currentIngredients =>{
       return currentIngredients.filter((ingredient) => ingredient.id !== ingredientId)
     })
   }
 
-  const contentSwitchHandler = () => {
+  const addIngredientMaster = () => {
+    key = firebase.database().ref('/Ingredients').push().key;
+    firebase.database().ref('/Ingredients').child(key).set({
+      item: enterIngredient,
+      userID: user.uid
+    }).then(function() {
+      console.log('Synchronization succeeded');
+    })
+    addIngredientHandler();
+  }
+
+
+  const contentSwitchHandler = (num) => {
     if(contentSwitch === 0) {
       setContentSwitch(1);
     }
@@ -64,7 +84,7 @@ export default function App() {
   let content = <Login contentSwitchHandler = {contentSwitchHandler}/>;
   if(contentSwitch === 1){
     //powerSetHandler(ingredientList);
-    content = <PantryPage ingredientInputHandlerMaster = {ingredientInputHandler} ingredientList= {ingredientList} addIngredientHandler= {addIngredientHandler}/>;
+    content = <PantryPage ingredientInputHandlerMaster = {ingredientInputHandler} ingredientList= {ingredientList} addIngredientHandler= {addIngredientMaster} user= {user} addIngredientHandlerByVal={addIngredientHandlerByVal}/>;
   }
   if(contentSwitch === 2){
     content = <RecipePage ingredientList = {ingredientList} contentSwitchHandler = {contentSwitchHandler} user = {user}/>
